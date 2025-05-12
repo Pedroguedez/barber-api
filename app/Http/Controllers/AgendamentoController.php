@@ -33,7 +33,16 @@ class AgendamentoController extends Controller
             'data' => $agendamento
         ], 201);
     }
+    public function show($id)
+    {
+        $agendamento = Agendamento::find($id);
 
+        if (!$agendamento) {
+            return response()->json(['message' => 'Agendamento não encontrado'], 404);
+        }
+
+        return response()->json(['agendamento' => $agendamento]);
+    }
     public function atualizarStatus(Request $request, $id)
     {
         $agendamento = Agendamento::find($id);
