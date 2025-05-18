@@ -90,5 +90,9 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Usuário deletado com sucesso']);
     }
-
+    public function getBarbeiros()
+    {
+        $barbeiros = User::where('nivel', 'barbeiro')->select('id', 'name')->get();
+        return response()->json(['barbeiros' => $barbeiros]);
+    }
 }
