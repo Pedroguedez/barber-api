@@ -1,0 +1,7 @@
+parameters:
+    level: 5##quanto maior, mais exigente
+    paths:
+        - app
+        - routes
+    ignoreErrors:
+        - '#Call to an undefined method#'

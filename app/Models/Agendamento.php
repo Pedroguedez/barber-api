@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
 class Agendamento extends Model
 {
     use HasFactory;
@@ -29,5 +28,4 @@ class Agendamento extends Model
     {
         return $this->belongsTo(User::class, 'barbeiro_id');
     }
-
 }
