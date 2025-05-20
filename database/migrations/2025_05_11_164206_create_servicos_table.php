@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('servicos', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->decimal('preco', 8, 2);
-            $table->integer('duracao');
-            $table->enum('status', ['ativo', 'inativo'])->default('ativo');
+            $table->string('name');
+            $table->decimal('price', 8, 2);
+            $table->integer('duration');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('servicos');
+        Schema::dropIfExists('services');
     }
 };

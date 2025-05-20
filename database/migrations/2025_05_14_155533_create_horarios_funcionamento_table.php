@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('horarios_funcionamento', function (Blueprint $table) {
+        Schema::create('working_hours', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_funcionario');
-            $table->enum('dia_semana', ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado']);
-            $table->time('abertura_manha');
-            $table->time('fechamento_manha');
-            $table->time('abertura_tarde');
-            $table->time('fechamento_tarde');
+            $table->unsignedBigInteger('employee_id');
+            $table->enum('weekday', ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']);
+            $table->time('opening_morning');
+            $table->time('closing_morning');
+            $table->time('late_opening');
+            $table->time('late_closing');
             $table->timestamps();
 
-            $table->foreign('id_funcionario')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('horarios_funcionamento');
+        Schema::dropIfExists('working_hours');
     }
 };
