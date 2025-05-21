@@ -2,45 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Servico;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class ServicoController extends Controller
+class ServiceController extends Controller
 {
     public function index()
     {
-        $servicos = Servico::all();
+        $Services = Service::all();
 
         return response()->json([
-            'servicos' => $servicos
+            'Services' => $Services
         ]);
     }
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required|string',
-            'preco' => 'required|numeric|min:0',
-            'duracao' => 'required|integer|min:1',
-            'status' => 'in:ativo,inativo',
+            'name' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'duration' => 'required|integer|min:1',
         ]);
 
-        $servico = Servico::create($request->all());
-        return response()->json($servico, 201);
+        $Service = Service::create($request->all());
+        return response()->json($Service, 201);
     }
 
     public function show($id)
     {
-        $servico = Servico::find($id);
-        if (!$servico) {
+        $Service = Service::find($id);
+        if (!$Service) {
             return response()->json(['message' => 'Serviço não encontrado'], 404);
         }
-        return $servico;
+        return $Service;
     }
 
     public function update(Request $request, $id)
     {
-        $servico = Servico::find($id);
-        if (!$servico) {
+        $Service = Service::find($id);
+        if (!$Service) {
             return response()->json(['message' => 'Serviço não encontrado'], 404);
         }
 
@@ -51,18 +50,18 @@ class ServicoController extends Controller
             'status' => 'in:ativo,inativo',
         ]);
 
-        $servico->update($request->all());
-        return response()->json($servico);
+        $Service->update($request->all());
+        return response()->json($Service);
     }
 
     public function destroy($id)
     {
-        $servico = Servico::find($id);
-        if (!$servico) {
+        $Service = Service::find($id);
+        if (!$Service) {
             return response()->json(['message' => 'Serviço não encontrado'], 404);
         }
 
-        $servico->delete();
+        $Service->delete();
         return response()->json(['message' => 'Serviço deletado com sucesso']);
     }
 }

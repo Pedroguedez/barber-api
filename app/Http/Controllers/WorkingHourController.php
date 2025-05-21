@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HorarioFuncionamento;
+use App\Models\WorkingHour;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class HorariosFuncionamentoController extends Controller
+class WorkingHourController extends Controller
 {
     public function index()
     {
-        $horarios = HorarioFuncionamento::all();
+        $horarios = WorkingHour::all();
 
         return response()->json([
             'horarios' => $horarios
@@ -37,13 +37,13 @@ class HorariosFuncionamentoController extends Controller
             return response()->json(['error' => 'O funcionário informado não é um barbeiro.'], 422);
         }
 
-        $horario = HorarioFuncionamento::create($request->all());
+        $horario = WorkingHour::create($request->all());
 
         return response()->json(['success' => true, 'data' => $horario], 201);
     }
     public function update(Request $request, $id)
     {
-        $horario = HorarioFuncionamento::find($id);
+        $horario = WorkingHour::find($id);
         if (!$horario) {
             return response()->json(['message' => 'Horario não encontrado'], 404);
         }
@@ -78,7 +78,7 @@ class HorariosFuncionamentoController extends Controller
     }
     public function show($id)
     {
-        $horario = HorarioFuncionamento::find($id);
+        $horario = WorkingHour::find($id);
         if (!$horario) {
             return response()->json(['message' => 'Serviço não encontrado'], 404);
         }
@@ -86,7 +86,7 @@ class HorariosFuncionamentoController extends Controller
     }
     public function destroy($id)
     {
-        $horario = HorarioFuncionamento::find($id);
+        $horario = WorkingHour::find($id);
         if (!$horario) {
             return response()->json(['message' => 'Horario não encontrado'], 404);
         }

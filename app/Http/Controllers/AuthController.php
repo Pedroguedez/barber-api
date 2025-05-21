@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthResquest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -9,12 +10,9 @@ use Illuminate\Support\Facades\Auth ;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(AuthResquest $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $credentials = $request->only(['email', 'password']);
 
         if (!Auth::attempt($credentials)) {
             return response()->json(['message' => 'Credenciais inválidas'], 401);
@@ -31,7 +29,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout(AuthResquest $request)
     {
         $request->user()->currentAccessToken()->delete();
 
