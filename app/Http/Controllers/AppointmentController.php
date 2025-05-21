@@ -24,7 +24,7 @@ class AppointmentController extends Controller
     public function store(AppointmentRequest $request): JsonResponse
     {
         $appointment = (new AppointmentBuilder())
-            ->paraCliente($request->cliente_id)
+            ->paraCliente($request->client_id)
             ->comBarbeiro($request->barber_id)
             ->comServico($request->services_id)
             ->naData($request->data)

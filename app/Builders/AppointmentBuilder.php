@@ -11,7 +11,7 @@ class AppointmentBuilder
 
     public function paraCliente(int $id): self
     {
-        $this->dados['cliente_id'] = $id;
+        $this->dados['client_id'] = $id;
         return $this;
     }
 
