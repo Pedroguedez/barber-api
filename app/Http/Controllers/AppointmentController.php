@@ -6,7 +6,6 @@ use App\Builders\AppointmentBuilder;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Http\Requests\AppointmentRequest;
-use App\Services\AppointmentService;
 use Illuminate\Http\JsonResponse;
 
 class AppointmentController extends Controller
@@ -46,7 +45,7 @@ class AppointmentController extends Controller
 
         return response()->json(['data' => $appointment]);
     }
-    public function atualizarStatus(Request $request, AppointmentService $service, int $id): JsonResponse
+    public function atualizarStatus(Request $request, int $id): JsonResponse
     {
         $appointment = Appointment::find($id);
 
