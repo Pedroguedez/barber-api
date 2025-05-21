@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class AppointmentController extends Controller
 {
-    private array $statusPermitidos = ['pendente', 'confirmado', 'cancelado', 'concluido'];
+    private array $statusPermitidos = ['pending', 'confirmed', 'canceled', 'completed'];
 
     public function index(): JsonResponse
     {
