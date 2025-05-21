@@ -1,61 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Agendamento para Barbearia
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## ✂️ Descrição
+Sistema RESTful para gerenciamento de agendamentos, horários de funcionamento, barbeiros e serviços. Desenvolvido em Laravel com foco em boas práticas de **Clean Code** e **Testes Automatizados**.
 
-## About Laravel
+## ✅ Funcionalidades
+- CRUD de agendamentos
+- CRUD de horários de funcionamento
+- CRUD de serviços
+- Validação de funcionários como barbeiros
+- API organizada por boas práticas de Clean Code
+- Uso de Builder para criação fluente de agendamentos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🔍 Problemas Encontrados (antes da refatoração)
+- Lógica duplicada em controllers
+- Validações misturadas com regras de negócio
+- Falta de testes automatizados
+- Violações do princípio SRP (Single Responsibility Principle)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠 Estratégia de Refatoração
+- Criação de **Services** para encapsular regras de negócio
+- Extração de validações em classes próprias
+- Aplicação de testes automatizados com PHPUnit
+- Uso de **Interfaces Fluentes** (Builder Pattern)
+- Padronização de nomes e migrações em inglês
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📋 CHANGELOG.md
+- [ADD] Refatoração completa dos controllers
+- [ADD] Testes unitários e de integração com PHPUnit
+- [ADD] Análise estática com PHPStan
+- [ADD] Linter com PHP_CodeSniffer
+- [ADD] `AppointmentBuilder` com padrão Builder
+- [ADD] Renomeação das tabelas e campos para inglês
+- [ADD] Padronização da arquitetura em camadas (Controller, Service, Builder, Request, Model)
 
-## Learning Laravel
+## 🧪 Testes
+- Executados com PHPUnit
+- Cobertura de controllers e serviços
+- Validação de criação de agendamentos com Builder fluente
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🧩 Interface Fluente
+Aplicada em:
+- `AppointmentBuilder`: construção de agendamentos com encadeamento de métodos
+- `HorarioValidator`: validações compostas para horários
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Exemplo de uso do `AppointmentBuilder`:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```php
+$appointment = (new AppointmentBuilder())
+    ->paraCliente($request->cliente_id)
+    ->comBarbeiro($request->barber_id)
+    ->comServico($request->services_id)
+    ->naData($request->data)
+    ->noHorario($request->time)
+    ->comStatus('pending')
+    ->comObservacao('Cliente pediu para não atrasar')
+    ->criar();
+▶️ Instalação
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+php artisan test
