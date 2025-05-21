@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreWorkingHourRequest;
+use App\Http\Requests\UpdateWorkingHourRequest;
 use App\Models\WorkingHour;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 
 class WorkingHourController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $horarios = WorkingHour::all();
 
@@ -17,54 +18,32 @@ class WorkingHourController extends Controller
             'horarios' => $horarios
         ]);
     }
-    public function store(Request $request)
-    {
-        $request->validate([
-            'id_funcionario' => 'required|exists:users,id',
-            'dia_semana' => 'required|string',
-            'abertura_manha' => 'required',
-            'fechamento_manha' => 'required',
-            'abertura_tarde' => 'required',
-            'fechamento_tarde' => 'required',
-        ]);
 
-        // Verificar se o id_funcionario realmente é um barbeiro
-        $barbeiro = User::where('id', $request->id_funcionario)
-                                    ->where('nivel', 'Barbeiro')
+    public function store(StoreWorkingHourRequest $request): JsonResponse
+    {
+        // Verificar se o employee_id realmente é um barbeiro
+        $barbeiro = User::where('id', $request->employee_id)
+                                    ->where('level', 'Barber')
                                     ->first();
 
         if (!$barbeiro) {
             return response()->json(['error' => 'O funcionário informado não é um barbeiro.'], 422);
         }
 
-        $horario = WorkingHour::create($request->all());
+        $horario = WorkingHour::create($request->validated());
 
         return response()->json(['success' => true, 'data' => $horario], 201);
     }
-    public function update(Request $request, $id)
+    public function update(UpdateWorkingHourRequest $request, $id):JsonResponse
     {
         $horario = WorkingHour::find($id);
         if (!$horario) {
             return response()->json(['message' => 'Horario não encontrado'], 404);
         }
 
-        $validator = Validator::make($request->all(), [
-            'id_funcionario' => 'sometimes|exists:users,id',
-            'dia_semana' => 'sometimes|string',
-            'abertura_manha' => 'sometimes|date_format:H:i',
-            'fechamento_manha' => 'sometimes|date_format:H:i|after:abertura_manha',
-            'abertura_tarde' => 'sometimes|date_format:H:i',
-            'fechamento_tarde' => 'sometimes|date_format:H:i|after:abertura_tarde',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        // Só verifica se é barbeiro se o id_funcionario foi enviado
-        if ($request->has('id_funcionario')) {
-            $barbeiro = User::where('id', $request->id_funcionario)
-                            ->where('nivel', 'Barbeiro')
+        if ($request->has('employee_id')) {
+            $barbeiro = User::where('id', $request->employee_id)
+                            ->where('level', 'Barber')
                             ->first();
 
             if (!$barbeiro) {
@@ -76,15 +55,15 @@ class WorkingHourController extends Controller
 
         return response()->json($horario);
     }
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $horario = WorkingHour::find($id);
         if (!$horario) {
-            return response()->json(['message' => 'Serviço não encontrado'], 404);
+            return response()->json(['message' => 'Horarios não encontrado'], 404);
         }
         return $horario;
     }
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $horario = WorkingHour::find($id);
         if (!$horario) {
