@@ -24,7 +24,7 @@ class AppointmentRequest extends FormRequest
         return [
             'client_id' => 'required|exists:users,id',
             'barber_id' => 'required|exists:users,id',
-            'services_id' => 'required|exists:services,id',
+            'service_id' => 'required|exists:services,id',
             'data' => 'required|date',
             'time' => 'required|date_format:H:i',
             'status' => 'nullable|in:pending, confirmed, canceled, completed',

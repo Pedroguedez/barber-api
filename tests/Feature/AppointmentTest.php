@@ -35,7 +35,7 @@ class AppointmentTest extends TestCase
         $response = $this->postJson('/api/agendamentos', [
             'client_id' => $cliente->id,
             'barber_id' => $barbeiro->id,
-            'services_id' => $servico->id,
+            'service_id' => $servico->id,
             'data' => '2025-06-01',
             'time' => '14:00',
             'status' => 'pending',

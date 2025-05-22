@@ -12,7 +12,7 @@ class Appointment extends Model
     protected $fillable = [
         'client_id',
         'barber_id',
-        'services_id',
+        'service_id',
         'data',
         'time',
         'status',
@@ -26,6 +26,10 @@ class Appointment extends Model
 
     public function barber()
     {
-        return $this->belongsTo(User::class, 'barber');
+        return $this->belongsTo(User::class, 'barber_id');
+    }
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 }

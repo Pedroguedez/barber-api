@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained('users');
             $table->foreignId('barber_id')->constrained('users');
-            $table->foreignId('services_id')->constrained('services');
+            $table->foreignId('service_id')->constrained('services');
             $table->date('data');
             $table->time('time');
             $table->enum('status', ['pending', 'confirmed', 'canceled', 'completed'])->default('pending');

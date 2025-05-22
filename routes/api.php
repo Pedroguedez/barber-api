@@ -46,4 +46,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/horariosFuncionamento/{id}', [WorkingHourController::class, 'show']);
     Route::put('/horariosFuncionamento/{id}', [WorkingHourController::class, 'update']);
     Route::delete('/horariosFuncionamento/{id}', [WorkingHourController::class, 'destroy']);
+
+//-----------------------------------------------
+    Route::post('/horariosdisponiveis', [AppointmentController::class, 'horariosDisponiveis']);
+
 });

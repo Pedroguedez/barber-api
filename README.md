@@ -49,7 +49,7 @@ Aplicada em:
 $appointment = (new AppointmentBuilder())
     ->paraCliente($request->cliente_id)
     ->comBarbeiro($request->barber_id)
-    ->comServico($request->services_id)
+    ->comServico($request->service_id)
     ->naData($request->data)
     ->noHorario($request->time)
     ->comStatus('pending')

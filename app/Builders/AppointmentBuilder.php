@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Models\Appointment;
 use Carbon\Carbon;
+use Exception;
 
 class AppointmentBuilder
 {
@@ -23,7 +24,7 @@ class AppointmentBuilder
 
     public function comServico(int $id): self
     {
-        $this->dados['services_id'] = $id;
+        $this->dados['service_id'] = $id;
         return $this;
     }
 
@@ -52,6 +53,16 @@ class AppointmentBuilder
 
     public function criar(): Appointment
     {
+        // Verifica de disponibilidade
+        $existe = Appointment::where('barber_id', $this->dados['barber_id'])
+            ->where('data', $this->dados['data'])
+            ->where('time', $this->dados['time'])
+            ->exists();
+
+        if ($existe) {
+            throw new Exception('Horário indisponível para esse barbeiro.');
+        }
+
         return Appointment::create($this->dados);
     }
 }
