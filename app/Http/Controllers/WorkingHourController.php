@@ -34,7 +34,7 @@ class WorkingHourController extends Controller
 
         return response()->json(['success' => true, 'data' => $horario], 201);
     }
-    public function update(UpdateWorkingHourRequest $request, $id):JsonResponse
+    public function update(UpdateWorkingHourRequest $request, int $id): JsonResponse
     {
         $horario = WorkingHour::find($id);
         if (!$horario) {
@@ -55,7 +55,7 @@ class WorkingHourController extends Controller
 
         return response()->json($horario);
     }
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $horario = WorkingHour::find($id);
         if (!$horario) {
@@ -63,7 +63,7 @@ class WorkingHourController extends Controller
         }
         return $horario;
     }
-    public function destroy($id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $horario = WorkingHour::find($id);
         if (!$horario) {

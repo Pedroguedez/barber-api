@@ -19,7 +19,9 @@ class AppointmentService
             ->where('weekday', $weekday)
             ->first();
 
-        if (!$horarios) return [];
+        if (!$horarios) {
+            return [];
+        }
 
         $duracaoServico = Service::findOrFail($serviceId)->duration;
 
