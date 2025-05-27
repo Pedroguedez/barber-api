@@ -11,8 +11,6 @@ use Illuminate\Http\JsonResponse;
 
 class AppointmentController extends Controller
 {
-    private array $statusPermitidos = ['pending', 'confirmed', 'canceled', 'completed'];
-
     public function index(): JsonResponse
     {
         $appointment = Appointment::all();
@@ -60,7 +58,7 @@ class AppointmentController extends Controller
 
         $status = $request->input('status');
 
-        if (!in_array($status, $this->statusPermitidos)) {
+        if (!in_array($status, Appointment::getAllowedStatuses())) {
             return response()->json(['message' => 'Status inválido'], 400);
         }
 
