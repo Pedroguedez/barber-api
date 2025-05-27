@@ -1,41 +1,84 @@
-# Release Notes
+# Changelog
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v12.0.7...12.x)
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v12.0.7](https://github.com/laravel/laravel/compare/v12.0.6...v12.0.7) - 2025-04-15
+## [Unreleased]
 
-* Add `composer run test` command by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/laravel/pull/6598
-* Partner Directory Changes in ReadME by [@joshcirre](https://github.com/joshcirre) in https://github.com/laravel/laravel/pull/6599
+- Melhorias contínuas na cobertura de testes automatizados
+- Ajustes de layout e organização de arquivos
+- Refatoração incremental da linguagem (pt → en)
+- Correções de status e nome de campos no banco
+- Refinamento do fluxo de validação com Request e Services
 
-## [v12.0.6](https://github.com/laravel/laravel/compare/v12.0.5...v12.0.6) - 2025-04-08
+---
+## [v1.2.1] - 2025-05-22
 
-**Full Changelog**: https://github.com/laravel/laravel/compare/v12.0.5...v12.0.6
+### Adicionado
+- Análise de código com **PHPStan** no nível máximo (`--level=max`)
+- Verificação completa de conformidade com **PSR-12** via **PHP_CodeSniffer (phpcs)**
 
-## [v12.0.5](https://github.com/laravel/laravel/compare/v12.0.4...v12.0.5) - 2025-04-02
+### Corrigido
+- Correção de todos os erros reportados por `phpcs`, incluindo:
+  - Abertura incorreta de tag PHP (`<?` → `<?php`)
+  - Espaços incorretos em type hints e declarações de retorno
+  - Uso de estruturas inline (`if`, `foreach`) fora do padrão PSR-12
+- Automatização da correção com `phpcbf`
 
-* [12.x] Update `config/mail.php` to match the latest core configuration by [@AhmedAlaa4611](https://github.com/AhmedAlaa4611) in https://github.com/laravel/laravel/pull/6594
+### Observações
+- Todas as correções foram aplicadas automaticamente com `phpcbf --standard=PSR12 app/`
+- Análise PHPStan executada com:  
+  ```bash
+  vendor/bin/phpstan analyse --level=max app/ --memory-limit=1G
 
-## [v12.0.4](https://github.com/laravel/laravel/compare/v12.0.3...v12.0.4) - 2025-03-31
+## [v1.2.0] - 2025-05-21
 
-* Bump vite from 6.0.11 to 6.2.3 - Vulnerability patch by [@abdel-aouby](https://github.com/abdel-aouby) in https://github.com/laravel/laravel/pull/6586
-* Bump vite from 6.2.3 to 6.2.4 by [@thinkverse](https://github.com/thinkverse) in https://github.com/laravel/laravel/pull/6590
+### Adicionado
+- Verificação de horários disponíveis com base na duração do serviço
+- Alteração dinâmica do `service_id` durante a verificação de agendamento
+- Testes para validação de horários disponíveis e integração com agendamentos
 
-## [v12.0.3](https://github.com/laravel/laravel/compare/v12.0.2...v12.0.3) - 2025-03-17
+### Modificado
+- Refatoração do controller de horários para seguir SRP
+- Ajustes no fluxo de criação de agendamentos com o uso de `AppointmentBuilder`
 
-* Remove reverted change from CHANGELOG.md by [@AJenbo](https://github.com/AJenbo) in https://github.com/laravel/laravel/pull/6565
-* Improves clarity in app.css file by [@AhmedAlaa4611](https://github.com/AhmedAlaa4611) in https://github.com/laravel/laravel/pull/6569
-* [12.x] Refactor: Structural improvement for clarity by [@AhmedAlaa4611](https://github.com/AhmedAlaa4611) in https://github.com/laravel/laravel/pull/6574
-* Bump axios from 1.7.9 to 1.8.2 - Vulnerability patch by [@abdel-aouby](https://github.com/abdel-aouby) in https://github.com/laravel/laravel/pull/6572
-* [12.x] Remove Unnecessarily [@source](https://github.com/source) by [@AhmedAlaa4611](https://github.com/AhmedAlaa4611) in https://github.com/laravel/laravel/pull/6584
+---
 
-## [v12.0.2](https://github.com/laravel/laravel/compare/v12.0.1...v12.0.2) - 2025-03-04
+## [v1.1.1] - 2025-05-20
 
-* Make the github test action run out of the box independent of the choice of testing framework by [@ndeblauw](https://github.com/ndeblauw) in https://github.com/laravel/laravel/pull/6555
+### Adicionado
+- Criação da classe `AppointmentBuilder` em `app/Builders`
+- Implementação do padrão Builder para construção fluente de agendamentos
+- Testes para store de horário de funcionamento
+- Refatoração seguindo o SRP nos módulos `User`, `WorkingHour` e `Appointment`
 
-## [v12.0.1](https://github.com/laravel/laravel/compare/v12.0.0...v12.0.1) - 2025-02-24
+### Corrigido
+- Correções nos campos `status`, `nome` e padronização da linguagem (português → inglês)
+- Ajustes nas Requests e validações desacopladas
 
-* [12.x] prefer stable stability by [@pataar](https://github.com/pataar) in https://github.com/laravel/laravel/pull/6548
+---
 
-## [v12.0.0 (2025-??-??)](https://github.com/laravel/laravel/compare/v11.0.2...v12.0.0)
+## [v1.1.0] - 2025-05-18
 
-Laravel 12 includes a variety of changes to the application skeleton. Please consult the diff to see what's new.
+### Adicionado
+- Testes automatizados para agendamentos
+- Integração do PHPStan e PHPCS para análise estática e padronização de código
+- API para gerenciamento de horários de funcionamento
+
+---
+
+## [v1.0.1] - 2025-05-11
+
+### Adicionado
+- CRUD completo para serviços com validação e testes
+- API RESTful para gerenciamento de agendamentos e serviços
+
+---
+
+## [v1.0.0] - 2025-05-08
+
+### Adicionado
+- Inicialização do projeto com autenticação e CRUD de usuários
+- Estrutura básica de API utilizando Laravel
+- Migrações e modelos Eloquent: `User`, `Service`, `Appointment`, `WorkingHour`
+- Implementação do login e controle de acesso via Sanctum

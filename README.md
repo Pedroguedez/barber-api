@@ -24,14 +24,9 @@ Sistema RESTful para gerenciamento de agendamentos, horários de funcionamento, 
 - Uso de **Interfaces Fluentes** (Builder Pattern)
 - Padronização de nomes e migrações em inglês
 
-## 📋 CHANGELOG.md
-- [ADD] Refatoração completa dos controllers
-- [ADD] Testes unitários e de integração com PHPUnit
-- [ADD] Análise estática com PHPStan
-- [ADD] Linter com PHP_CodeSniffer
-- [ADD] `AppointmentBuilder` com padrão Builder
-- [ADD] Renomeação das tabelas e campos para inglês
-- [ADD] Padronização da arquitetura em camadas (Controller, Service, Builder, Request, Model)
+## 📋 Changelog
+
+Consulte o [CHANGELOG.md](CHANGELOG.md) para um histórico detalhado de todas as alterações e versões do projeto.
 
 ## 🧪 Testes
 - Executados com PHPUnit

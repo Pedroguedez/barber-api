@@ -43,6 +43,6 @@ class AppointmentTest extends TestCase
         ]);
 
         $response->assertStatus(201)
-                ->assertJsonStructure(['data']);
+                ->assertJsonStructure(['data' => ['id', 'client_id', 'barber_id', 'service_id', 'data', 'time', 'status', 'notes']]);
         }
 }
